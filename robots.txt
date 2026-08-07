@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://biliyuniarto.github.io/video-portfolio/sitemap.xml
