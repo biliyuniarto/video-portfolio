@@ -31,8 +31,8 @@ jobs:
           cp index.html styles.css script.js favicon.svg robots.txt sitemap.xml .nojekyll _site/
           cp ./*.mp4 ./*.webp bili-video-portfolio-qr.png _site/
 
-          test "$(find _site -maxdepth 1 -name '*.mp4' | wc -l)" -eq 5
-          test "$(find _site -maxdepth 1 -name '*.webp' | wc -l)" -eq 5
+          test "$(find _site -maxdepth 1 -name '*.mp4' | wc -l)" -eq 6
+          test "$(find _site -maxdepth 1 -name '*.webp' | wc -l)" -eq 6
           test -s _site/bili-video-portfolio-qr.png
 
       - name: Configure GitHub Pages
