@@ -1,19 +1,32 @@
-# Bili Yuniarto — Video & Content Portfolio
+# Bili Yuniarto — Social Content & Video Portfolio
 
-A curated, mobile-first portfolio of selected narrative, social, and commercial video work by Bili Yuniarto.
+A curated, mobile-first portfolio focused on social-first video, B2B product communication, commercial content, and selected narrative work.
 
 **Live portfolio:** https://biliyuniarto.github.io/video-portfolio/
 
-## Selected work
+## Current selected work
 
-- Kembali ke Fitrah — narrative short film
-- Mamma Mia — chef collaboration / social video
-- 3 Equipment Wajib Sebelum Buka Cafe — commercial product education
-- Tecnoeka Redflash — commercial product story
-- Prasetyo Wahyu Teaser — branded social teaser
+- **3 Equipment Wajib Sebelum Buka Cafe** — B2B/product education
+- **Tecnoeka Redflash** — commercial product storytelling
+- **Mamma Mia** — chef collaboration / social video
+- **Prasetyo Wahyu Teaser** — branded social teaser
+- **Kembali ke Fitrah** — narrative / cinematic range
 
-The 30-second showreel is edited specifically for this portfolio. The revised ending replaces an unused character-overlay shot and all end credits with a compositing reveal and cinematic day-to-night sequence.
+## Positioning
 
-## Role coverage
+The portfolio is intentionally curated around work that demonstrates:
 
-Creative direction, camera operation, video editing, sound design, product storytelling, and social-first content production.
+- content strategy and audience framing
+- short-form and platform-aware editing
+- product education and B2B storytelling
+- hands-on video production
+- clear visual communication
+- range across commercial, social, and narrative formats
+
+Additional B2B product education, testimonial, unboxing, and behind-the-scenes work is available on request.
+
+## Related work
+
+- General portfolio: https://biliyuniarto.github.io/
+- AI evaluation portfolio: https://biliyuniarto.github.io/ai-evaluation-portfolio/
+- LinkedIn: https://www.linkedin.com/in/bili-yuniarto
