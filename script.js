@@ -735,25 +735,25 @@ filterButtons.forEach((button) => {
 
 /* ---------- Ambient light streaks ---------- */
 
-// Rendered at reduced resolution (the streaks are soft anyway), paused while the
-// page scrolls, and drawn once as a still frame on low-power or touch devices.
+// Always moving (and drifting with scroll), but kept cheap: rendered at reduced
+// resolution since the streaks are soft anyway, capped at 30 fps, and lighter on
+// touch / low-core devices. Only reduced-motion or data-saver gets a still frame.
 const streakCanvas = document.querySelector('.streaks');
 if (streakCanvas && streakCanvas.getContext) {
   const ctx = streakCanvas.getContext('2d');
-  const lowPower = reduced
-    || !supportsHover.matches
-    || (navigator.hardwareConcurrency || 8) <= 4
-    || Boolean(navigator.connection && navigator.connection.saveData);
-  const renderScale = 0.6;
+  const still = reduced || Boolean(navigator.connection && navigator.connection.saveData);
+  const light = !supportsHover.matches || (navigator.hardwareConcurrency || 8) <= 4;
+  const renderScale = light ? 0.5 : 0.6;
+  const frameGap = 33;
   const bundles = [
-    { y: 0.32, slope: -0.32, amp: 0.16, freq: 0.0022, speed: 0.22, spread: 150, strands: 16, hue: 78, phase: 0 },
-    { y: 0.78, slope: 0.12, amp: 0.1, freq: 0.0016, speed: -0.16, spread: 110, strands: 11, hue: 160, phase: 2.1 },
+    { index: 0, y: 0.32, slope: -0.32, amp: 0.16, freq: 0.0022, speed: 0.22, spread: 150, strands: 16, hue: 78, phase: 0 },
+    { index: 1, y: 0.78, slope: 0.12, amp: 0.1, freq: 0.0016, speed: -0.16, spread: 110, strands: 11, hue: 160, phase: 2.1 },
   ];
   const sparks = Array.from({ length: 24 }, () => ({ x: Math.random(), b: Math.random() < 0.7 ? 0 : 1, o: Math.random() - 0.5, v: 0.0006 + Math.random() * 0.0014, r: Math.random() * 1.4 + 0.5 }));
   let width = 0;
   let height = 0;
   let lastDraw = 0;
-  let lastScrollAt = 0;
+  let drift = [0, 0];
   let running = false;
 
   function resizeStreaks() {
@@ -765,7 +765,7 @@ if (streakCanvas && streakCanvas.getContext) {
   }
 
   function bundlePoint(bundle, x, t, offset) {
-    const base = height * bundle.y + (x - width / 2) * bundle.slope
+    const base = height * bundle.y + (x - width / 2) * bundle.slope + drift[bundle.index]
       + Math.sin(x * bundle.freq + t * bundle.speed + bundle.phase) * height * bundle.amp
       + Math.sin(x * bundle.freq * 2.3 - t * bundle.speed * 1.6) * height * bundle.amp * 0.3;
     const pinch = 0.25 + 0.75 * (0.5 + 0.5 * Math.sin(x * 0.0035 + t * 0.35 + bundle.phase));
@@ -783,6 +783,10 @@ if (streakCanvas && streakCanvas.getContext) {
 
   function drawStreaks(now) {
     const t = now / 1000;
+    const scrollY = window.scrollY;
+    bundles.forEach((bundle) => {
+      drift[bundle.index] = Math.sin(scrollY * 0.0012 + bundle.phase) * height * 0.08;
+    });
     ctx.clearRect(0, 0, width, height);
     ctx.globalCompositeOperation = 'lighter';
     const step = 26;
@@ -803,7 +807,7 @@ if (streakCanvas && streakCanvas.getContext) {
     });
 
     sparks.forEach((spark) => {
-      if (!lowPower) spark.x = (spark.x + spark.v) % 1.05;
+      if (!still) spark.x = (spark.x + spark.v) % 1.05;
       const x = spark.x * width;
       const y = bundlePoint(bundles[spark.b], x, t, spark.o);
       ctx.fillStyle = `hsla(${bundles[spark.b].hue}, 100%, 75%, ${0.35 + Math.sin(t * 3 + spark.o * 10) * 0.25})`;
@@ -817,9 +821,8 @@ if (streakCanvas && streakCanvas.getContext) {
       running = false;
       return;
     }
-    const scrolling = now - lastScrollAt < 180;
     const modalOpen = document.body.classList.contains('modal-open');
-    if (!scrolling && !modalOpen && now - lastDraw > 40) {
+    if (!modalOpen && now - lastDraw > frameGap) {
       lastDraw = now;
       drawStreaks(now);
     }
@@ -827,7 +830,7 @@ if (streakCanvas && streakCanvas.getContext) {
   }
 
   function start() {
-    if (running || lowPower) return;
+    if (running || still) return;
     running = true;
     window.requestAnimationFrame(loop);
   }
@@ -838,7 +841,6 @@ if (streakCanvas && streakCanvas.getContext) {
     resizeStreaks();
     drawStreaks(performance.now());
   }, { passive: true });
-  window.addEventListener('scroll', () => { lastScrollAt = performance.now(); }, { passive: true });
   document.addEventListener('visibilitychange', () => {
     if (!document.hidden) start();
   });
