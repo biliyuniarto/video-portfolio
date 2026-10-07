@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Bili Yuniarto — Social Content &amp; Video Portfolio</title>
   <meta name="description" content="Selected social-first, B2B product, commercial, and narrative video work by Bili Yuniarto in Indonesia.">
-  <meta name="theme-color" content="#f1efe9">
+  <meta name="theme-color" content="#060706">
   <link rel="canonical" href="https://biliyuniarto.github.io/video-portfolio/">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <meta property="og:title" content="Bili Yuniarto — Social Content &amp; Video Portfolio">
@@ -14,71 +14,81 @@
   <meta property="og:url" content="https://biliyuniarto.github.io/video-portfolio/">
   <meta property="og:image" content="https://biliyuniarto.github.io/video-portfolio/showreel.webp">
   <script>document.documentElement.classList.add('js');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
 </head>
 <body>
   <div class="loader" aria-hidden="true">
     <div class="loader-inner">
-      <span class="loader-mark">BY</span>
+      <span class="logo-tile loader-mark">BY</span>
       <span class="loader-count" data-loader-count>000</span>
       <span class="loader-line"><i></i></span>
-      <span class="loader-caption">Social content &amp; video portfolio</span>
+      <span class="loader-caption">rendering portfolio…</span>
     </div>
   </div>
+  <canvas class="streaks" aria-hidden="true"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
   <div class="cursor" aria-hidden="true"><span class="cursor-ring"><span class="cursor-label">Play</span></span><span class="cursor-dot"></span></div>
+
   <main id="top">
     <div class="scroll-progress" aria-hidden="true"><div></div></div>
     <header class="site-header">
       <a class="brand" href="#top" aria-label="Bili Yuniarto content portfolio">
-        <span class="brand-mark">BY</span>
-        <span class="brand-copy">Social content<br>&amp; video portfolio</span>
+        <span class="logo-tile">BY</span>
+        <span class="brand-name">Bili Yuniarto</span>
       </a>
       <nav aria-label="Primary navigation">
-        <a href="#work">Selected work</a>
+        <a href="#work">Work</a>
         <a href="#approach">Approach</a>
-        <a class="nav-cta" href="#contact" data-magnetic>Let&apos;s talk ↗</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
       </nav>
+      <div class="header-actions">
+        <span class="status-pill mono"><i></i>open for projects</span>
+        <a class="button button-lime button-sm" href="#contact" data-magnetic>Let&apos;s talk</a>
+      </div>
     </header>
 
     <section class="hero shell" aria-labelledby="hero-title">
       <div class="hero-copy" data-reveal="hero-copy">
-        <p class="eyebrow"><span></span> Indonesia · Remote</p>
+        <p class="badge mono"><i></i>indonesia / remote / social-first</p>
         <h1 id="hero-title" aria-label="Content with a job to do.">
           <span class="title-line" aria-hidden="true"><span data-split>Content with</span></span>
           <span class="title-line" aria-hidden="true"><em data-split>a job to do.</em></span>
         </h1>
         <p class="hero-intro">I&apos;m Bili Yuniarto. I work across content strategy, video production, and editing—turning product or business subjects into stories people can watch, understand, and act on.</p>
         <div class="hero-actions">
-          <a class="button button-primary" href="#showreel" data-magnetic data-open-reel>Play showreel <span>▶</span></a>
-          <a class="button button-ghost" href="#work" data-magnetic>View selected work <span>↓</span></a>
+          <a class="button button-lime" href="#showreel" data-magnetic data-open-reel>Play showreel <span>▶</span></a>
+          <a class="button button-glass" href="#work" data-magnetic><span>▶</span> View selected work</a>
         </div>
-        <div class="hero-proof" role="group" aria-label="Portfolio highlights">
-          <div><strong>B2B +</strong><span>Social and product content</span></div>
-          <div><strong>9:16</strong><span>Plus landscape formats</span></div>
-          <div><strong>Plan → Edit</strong><span>Hands-on execution</span></div>
-        </div>
+        <p class="hero-foot mono">b2b + social / 9:16 + 16:9 / plan → shoot → edit</p>
       </div>
 
-      <div class="hero-stage" id="showreel" data-reveal="hero-stage">
-        <div class="stage-number" aria-hidden="true">01—05</div>
-        <div class="stage-card stage-card-left" aria-hidden="true">
-          <img src="mamma-mia.webp" alt="">
-          <span>Social / Vertical</span>
-        </div>
-        <div class="stage-card stage-card-right" aria-hidden="true">
-          <img src="tecnoeka-redflash.webp" alt="">
-          <span>Product / Vertical</span>
+      <div class="hero-panel glass" id="showreel" data-reveal="hero-stage" data-tilt-panel>
+        <div class="panel-bar">
+          <span class="panel-title">showreel.mp4</span>
+          <span class="mono panel-meta">5 films / 07:48 runtime</span>
+          <span class="mono panel-live"><i></i>playing</span>
         </div>
         <div class="hero-reel" data-cursor="Watch">
           <button class="reel-hit" type="button" data-open-reel><span class="sr-only">Play showreel with sound</span></button>
           <video data-hero-video muted loop playsinline preload="metadata" poster="showreel.webp" aria-hidden="true">
             <source src="showreel.mp4" type="video/mp4">
           </video>
-          <div class="reel-overlay"><span>Selected work / 2026</span><span>Play reel · 00:30</span></div>
+          <div class="reel-overlay mono"><span>selected work / 2026</span><span>00:30</span></div>
         </div>
-        <p class="stage-note">Move to explore / Click to watch</p>
+        <div class="render-log">
+          <p class="mono log-head">last renders</p>
+          <ol>
+            <li><button type="button" data-open-index="0"><i></i><span class="mono">01:22</span><b>3 Equipment Wajib Sebelum Buka Cafe</b><span class="mono">commercial</span></button></li>
+            <li><button type="button" data-open-index="1"><i></i><span class="mono">02:10</span><b>Tecnoeka Redflash</b><span class="mono">commercial</span></button></li>
+            <li><button type="button" data-open-index="2"><i></i><span class="mono">01:07</span><b>Mamma Mia</b><span class="mono">social</span></button></li>
+          </ol>
+        </div>
       </div>
     </section>
 
@@ -86,16 +96,52 @@
       <div class="marquee-track" data-marquee><div class="marquee-group"><span>Content strategy</span><i>✦</i><span>Hook development</span><i>✦</i><span>Video production</span><i>✦</i><span>Short-form editing</span><i>✦</i><span>Product storytelling</span><i>✦</i><span>Platform adaptation</span><i>✦</i></div><div class="marquee-group" aria-hidden="true"><span>Content strategy</span><i>✦</i><span>Hook development</span><i>✦</i><span>Video production</span><i>✦</i><span>Short-form editing</span><i>✦</i><span>Product storytelling</span><i>✦</i><span>Platform adaptation</span><i>✦</i></div></div>
     </section>
 
-    <section class="stats shell" aria-label="Portfolio at a glance">
-      <div class="stat" data-reveal="fade" style="--card-index:0"><strong data-count="5" data-pad="2">05</strong><span>Selected films</span></div>
-      <div class="stat" data-reveal="fade" style="--card-index:1"><strong data-count="468" data-format="time">07:48</strong><span>Minutes of finished edit</span></div>
-      <div class="stat" data-reveal="fade" style="--card-index:2"><strong data-count="4" data-pad="2">04</strong><span>Vertical-first cuts</span></div>
-      <div class="stat" data-reveal="fade" style="--card-index:3"><strong data-count="3" data-pad="2">03</strong><span>Categories of work</span></div>
+    <section class="bento shell" aria-label="Portfolio at a glance">
+      <article class="glass bento-card bento-runtime" data-reveal="fade" style="--card-index:0">
+        <p class="mono card-label">runtime per film</p>
+        <div class="runtime-bars">
+          <div style="--v:.58" data-tip="01:22"><i></i><span class="mono">cafe</span></div>
+          <div style="--v:.92" data-tip="02:10"><i></i><span class="mono">redflash</span></div>
+          <div style="--v:.47" data-tip="01:07"><i></i><span class="mono">mamma mia</span></div>
+          <div style="--v:.33" data-tip="00:47"><i></i><span class="mono">teaser</span></div>
+          <div class="is-peak" style="--v:1" data-tip="02:22"><i></i><span class="mono">fitrah</span></div>
+        </div>
+        <p class="card-foot"><strong data-count="468" data-format="time">07:48</strong> of finished edit across the selection</p>
+      </article>
+      <article class="glass bento-card bento-donut" data-reveal="fade" style="--card-index:1">
+        <div class="donut" style="--p:80"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50"></circle><circle class="donut-value" cx="60" cy="60" r="50" pathLength="100"></circle></svg><strong><span data-count="80">80</span>%</strong></div>
+        <p class="card-foot">of the selection is cut vertical-first, for the feed</p>
+      </article>
+      <article class="glass bento-card" data-reveal="fade" style="--card-index:2">
+        <p class="mono card-label">selected films</p>
+        <div class="faces">
+          <img src="3-equipment-cafe.webp" alt="" loading="lazy"><img src="tecnoeka-redflash.webp" alt="" loading="lazy"><img src="mamma-mia.webp" alt="" loading="lazy"><img src="prasetyo-wahyu-teaser.webp" alt="" loading="lazy"><img src="kembali-ke-fitrah.webp" alt="" loading="lazy">
+        </div>
+        <p class="card-foot"><strong class="lime" data-count="5" data-pad="2">05</strong> films, from product explainers to a short film</p>
+      </article>
+      <article class="glass bento-card" data-reveal="fade" style="--card-index:3">
+        <p class="mono card-label">edit rhythm</p>
+        <svg class="wave" viewBox="0 0 300 80" preserveAspectRatio="none" aria-hidden="true">
+          <path class="wave-b" d="M0 40 C 37.5 0, 75 0, 112.5 40 S 187.5 80, 225 40 S 300 0, 337.5 40 S 412.5 80, 450 40 S 525 0, 562.5 40"></path>
+          <path class="wave-a" d="M0 40 C 37.5 80, 75 80, 112.5 40 S 187.5 0, 225 40 S 300 80, 337.5 40 S 412.5 0, 450 40 S 525 80, 562.5 40"></path>
+        </svg>
+        <p class="mono legend"><span><i class="dot-lime"></i>hook</span><span><i></i>payoff</span></p>
+        <p class="card-foot">Pacing built around the hook and the payoff</p>
+      </article>
+      <article class="glass bento-card" data-reveal="fade" style="--card-index:4">
+        <p class="mono card-label">where it lives</p>
+        <ul class="cat-list mono">
+          <li><span>commercial</span><i style="--n:2"></i><b>02</b></li>
+          <li><span>social</span><i style="--n:2"></i><b>02</b></li>
+          <li><span>narrative</span><i style="--n:1"></i><b>01</b></li>
+        </ul>
+        <p class="card-foot"><strong data-count="3" data-pad="2">03</strong> categories, one storytelling discipline</p>
+      </article>
     </section>
 
     <section class="work shell" id="work" aria-labelledby="work-title">
       <div class="section-heading" data-reveal="section-heading">
-        <div><p class="kicker">01 / Selected work</p><h2 id="work-title">Explain it.<br>Make it watchable.</h2></div>
+        <div><p class="badge mono"><i></i>01 / selected work</p><h2 id="work-title">Explain it. Make it <em>watchable.</em></h2></div>
         <p>A focused selection across B2B product education, commercial social content, creator-led storytelling, branded teasers, and narrative work. The priority is clarity, retention, and a reason for the viewer to care.</p>
       </div>
 
@@ -144,39 +190,56 @@
       </div>
     </section>
 
-    <section class="approach" id="approach" aria-labelledby="approach-title">
-      <div class="shell">
-        <div class="section-heading inverse" data-reveal="section-heading"><div><p class="kicker">02 / Approach</p><h2 id="approach-title">Strategy before<br>the timeline.</h2></div><p>Good-looking footage is only raw material. I start with what the audience needs to understand or feel, then let that goal shape the hook, coverage, edit, and platform treatment.</p></div>
-        <ol class="process-grid">
-          <li data-reveal="process"><span>01</span><h3>Find the reason</h3><p>Translate the brief into one clear audience problem, need, or curiosity worth stopping for.</p></li>
-          <li data-reveal="process"><span>02</span><h3>Plan the coverage</h3><p>Build the shots, talent beats, product details, and proof points around the final story.</p></li>
-          <li data-reveal="process"><span>03</span><h3>Edit for clarity</h3><p>Structure the message first, then use pacing, text, sound, and visual rhythm to hold attention.</p></li>
-          <li data-reveal="process"><span>04</span><h3>Fit the platform</h3><p>Adapt the delivery to the screen, context, and viewing behavior instead of reposting blindly.</p></li>
-        </ol>
-        <div class="capability-panel" data-reveal="fade"><p>Selected capabilities</p><div><span>Content strategy</span><span>Content concepting</span><span>Shot planning</span><span>Camera operation</span><span>Video editing</span><span>Social cutdowns</span><span>Product content</span><span>Platform adaptation</span></div></div>
+    <section class="manifesto" aria-labelledby="manifesto-title">
+      <div class="manifesto-card" data-manifesto>
+        <p class="mono manifesto-kicker">[ how I work ]</p>
+        <h2 id="manifesto-title" class="manifesto-text" data-words>Good-looking footage is only raw material. The story is the <em>product.</em></h2>
+        <span class="logo-tile manifesto-logo" aria-hidden="true">BY</span>
       </div>
     </section>
 
-    <section class="about shell" aria-labelledby="about-title" data-reveal="section-heading">
-      <div><p class="kicker">03 / About</p><h2 id="about-title">Hands-on creative.<br>Business context.</h2></div>
-      <div class="about-copy"><p class="about-lead">My background spans marketing communications, videography, editing, photography, social media, website content, and B2B product communication.</p><p>That mix matters because I don&apos;t treat content as decoration. I think about the audience, the message, the platform, and the business objective—then make the creative choices serve all four. Additional B2B product education, testimonial, unboxing, and behind-the-scenes work is available on request.</p><div class="about-links"><a href="https://www.linkedin.com/in/bili-yuniarto">LinkedIn ↗</a><a href="https://biliyuniarto.github.io/">General portfolio ↗</a><a href="https://biliyuniarto.github.io/ai-evaluation-portfolio/">AI evaluation portfolio ↗</a><a href="https://github.com/biliyuniarto/video-portfolio">Source on GitHub ↗</a></div></div>
+    <section class="approach shell" id="approach" aria-labelledby="approach-title">
+      <div class="section-heading" data-reveal="section-heading"><div><p class="badge mono"><i></i>02 / approach</p><h2 id="approach-title">Strategy before <em>the timeline.</em></h2></div><p>I start with what the audience needs to understand or feel, then let that goal shape the hook, coverage, edit, and platform treatment.</p></div>
+      <ol class="process-grid">
+        <li class="glass" data-reveal="process"><span class="mono step">01 / brief</span><h3>Find the reason</h3><p>Translate the brief into one clear audience problem, need, or curiosity worth stopping for.</p><span class="mono node-state"><i></i>input</span></li>
+        <li class="glass" data-reveal="process"><span class="mono step">02 / plan</span><h3>Plan the coverage</h3><p>Build the shots, talent beats, product details, and proof points around the final story.</p><span class="mono node-state"><i></i>shot list</span></li>
+        <li class="glass" data-reveal="process"><span class="mono step">03 / edit</span><h3>Edit for clarity</h3><p>Structure the message first, then use pacing, text, sound, and visual rhythm to hold attention.</p><span class="mono node-state"><i></i>timeline</span></li>
+        <li class="glass" data-reveal="process"><span class="mono step">04 / ship</span><h3>Fit the platform</h3><p>Adapt the delivery to the screen, context, and viewing behavior instead of reposting blindly.</p><span class="mono node-state"><i></i>delivered</span></li>
+      </ol>
+      <div class="capability-panel" data-reveal="fade"><p class="mono">selected capabilities</p><div><span>Content strategy</span><span>Content concepting</span><span>Shot planning</span><span>Camera operation</span><span>Video editing</span><span>Social cutdowns</span><span>Product content</span><span>Platform adaptation</span></div></div>
     </section>
 
-    <section class="contact shell" id="contact" aria-labelledby="contact-title" data-reveal="contact">
-      <div class="contact-card" data-spotlight><p class="kicker">04 / Contact</p><h2 id="contact-title">Need content<br>with a purpose?</h2><p>Open to social content, video production, editing, product storytelling, and marketing communication opportunities.</p><div class="contact-actions"><a class="button button-light" href="mailto:biliyuniarto1@gmail.com" data-magnetic>biliyuniarto1@gmail.com <span>↗</span></a><button class="button button-outline-light" type="button" data-copy-email="biliyuniarto1@gmail.com" data-magnetic>Copy email <span>⧉</span></button></div></div>
+    <section class="about shell" id="about" aria-labelledby="about-title" data-reveal="section-heading">
+      <div><p class="badge mono"><i></i>03 / about</p><h2 id="about-title">Hands-on creative. <em>Business context.</em></h2></div>
+      <div class="about-copy"><p class="about-lead">My background spans marketing communications, videography, editing, photography, social media, website content, and B2B product communication.</p><p>That mix matters because I don&apos;t treat content as decoration. I think about the audience, the message, the platform, and the business objective—then make the creative choices serve all four. Additional B2B product education, testimonial, unboxing, and behind-the-scenes work is available on request.</p><div class="about-links mono"><a href="https://www.linkedin.com/in/bili-yuniarto">LinkedIn ↗</a><a href="https://biliyuniarto.github.io/">General portfolio ↗</a><a href="https://biliyuniarto.github.io/ai-evaluation-portfolio/">AI evaluation portfolio ↗</a><a href="https://github.com/biliyuniarto/video-portfolio">Source on GitHub ↗</a></div></div>
     </section>
 
-    <footer class="site-footer shell"><span>© 2026 Bili Yuniarto</span><span>Social Content &amp; Video Portfolio</span><a href="#top">Back to top ↑</a></footer>
+    <section class="contact shell" id="contact" aria-labelledby="contact-title">
+      <div class="glass contact-side" data-reveal="fade">
+        <a class="brand" href="#top"><span class="logo-tile">BY</span><span class="brand-name">Bili Yuniarto</span></a>
+        <span class="contact-chevron" aria-hidden="true">»</span>
+        <p>Social content &amp; video, for the work that lives between the brief and the feed.</p>
+        <p class="mono status-line"><i></i>open for projects</p>
+      </div>
+      <div class="contact-card" data-spotlight data-reveal="contact">
+        <p class="mono">what now</p>
+        <h2 id="contact-title">Need content with a <em>purpose?</em></h2>
+        <p>Open to social content, video production, editing, product storytelling, and marketing communication opportunities.</p>
+        <div class="contact-actions"><a class="button button-dark" href="mailto:biliyuniarto1@gmail.com" data-magnetic>biliyuniarto1@gmail.com <span>↗</span></a><button class="button button-outline-dark" type="button" data-copy-email="biliyuniarto1@gmail.com" data-magnetic>Copy email <span>⧉</span></button></div>
+      </div>
+    </section>
+
+    <footer class="site-footer shell mono"><span>© 2026 Bili Yuniarto</span><span><i></i>social content &amp; video portfolio</span><a href="#top">back to top ↑</a></footer>
   </main>
 
-  <div class="toast" role="status" aria-live="polite"></div>
+  <div class="toast mono" role="status" aria-live="polite"></div>
 
   <div class="video-modal" role="dialog" aria-modal="true" aria-label="Selected work video player" hidden>
     <button class="modal-backdrop" type="button" aria-label="Close video"></button>
     <div class="modal-panel" role="document">
-      <div class="modal-topline"><div><span id="modal-category">Selected work</span><strong id="modal-title"></strong></div><div class="modal-controls"><span class="modal-counter" id="modal-counter" aria-live="polite"></span><button type="button" class="modal-nav" data-modal-step="-1" aria-label="Previous film">←</button><button type="button" class="modal-nav" data-modal-step="1" aria-label="Next film">→</button><button type="button" class="modal-close" aria-label="Close video">Close ×</button></div></div>
+      <div class="modal-topline"><div><span id="modal-category" class="mono">Selected work</span><strong id="modal-title"></strong></div><div class="modal-controls"><span class="modal-counter mono" id="modal-counter" aria-live="polite"></span><button type="button" class="modal-nav" data-modal-step="-1" aria-label="Previous film">←</button><button type="button" class="modal-nav" data-modal-step="1" aria-label="Next film">→</button><button type="button" class="modal-close" aria-label="Close video">Close ×</button></div></div>
       <video controls playsinline id="modal-video"></video>
-      <p id="modal-role"></p>
+      <p id="modal-role" class="mono"></p>
     </div>
   </div>
 </body>
