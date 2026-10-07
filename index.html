@@ -13,10 +13,21 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://biliyuniarto.github.io/video-portfolio/">
   <meta property="og:image" content="https://biliyuniarto.github.io/video-portfolio/showreel.webp">
+  <script>document.documentElement.classList.add('js');</script>
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
 </head>
 <body>
+  <div class="loader" aria-hidden="true">
+    <div class="loader-inner">
+      <span class="loader-mark">BY</span>
+      <span class="loader-count" data-loader-count>000</span>
+      <span class="loader-line"><i></i></span>
+      <span class="loader-caption">Social content &amp; video portfolio</span>
+    </div>
+  </div>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor" aria-hidden="true"><span class="cursor-ring"><span class="cursor-label">Play</span></span><span class="cursor-dot"></span></div>
   <main id="top">
     <div class="scroll-progress" aria-hidden="true"><div></div></div>
     <header class="site-header">
@@ -27,21 +38,21 @@
       <nav aria-label="Primary navigation">
         <a href="#work">Selected work</a>
         <a href="#approach">Approach</a>
-        <a class="nav-cta" href="#contact">Let&apos;s talk ↗</a>
+        <a class="nav-cta" href="#contact" data-magnetic>Let&apos;s talk ↗</a>
       </nav>
     </header>
 
     <section class="hero shell" aria-labelledby="hero-title">
       <div class="hero-copy" data-reveal="hero-copy">
         <p class="eyebrow"><span></span> Indonesia · Remote</p>
-        <h1 id="hero-title">
-          <span class="title-line"><span>Content with</span></span>
-          <span class="title-line"><em>a job to do.</em></span>
+        <h1 id="hero-title" aria-label="Content with a job to do.">
+          <span class="title-line" aria-hidden="true"><span data-split>Content with</span></span>
+          <span class="title-line" aria-hidden="true"><em data-split>a job to do.</em></span>
         </h1>
         <p class="hero-intro">I&apos;m Bili Yuniarto. I work across content strategy, video production, and editing—turning product or business subjects into stories people can watch, understand, and act on.</p>
         <div class="hero-actions">
-          <a class="button button-primary" href="#showreel">Play showreel <span>▶</span></a>
-          <a class="button button-ghost" href="#work">View selected work <span>↓</span></a>
+          <a class="button button-primary" href="#showreel" data-magnetic data-open-reel>Play showreel <span>▶</span></a>
+          <a class="button button-ghost" href="#work" data-magnetic>View selected work <span>↓</span></a>
         </div>
         <div class="hero-proof" role="group" aria-label="Portfolio highlights">
           <div><strong>B2B +</strong><span>Social and product content</span></div>
@@ -60,18 +71,26 @@
           <img src="tecnoeka-redflash.webp" alt="">
           <span>Product / Vertical</span>
         </div>
-        <div class="hero-reel">
+        <div class="hero-reel" data-cursor="Watch">
+          <button class="reel-hit" type="button" data-open-reel><span class="sr-only">Play showreel with sound</span></button>
           <video data-hero-video muted loop playsinline preload="metadata" poster="showreel.webp" aria-hidden="true">
             <source src="showreel.mp4" type="video/mp4">
           </video>
           <div class="reel-overlay"><span>Selected work / 2026</span><span>Play reel · 00:30</span></div>
         </div>
-        <p class="stage-note">Move to explore / Scroll to enter</p>
+        <p class="stage-note">Move to explore / Click to watch</p>
       </div>
     </section>
 
     <section class="marquee" aria-label="Capabilities">
-      <div><span>Content strategy</span><i>✦</i><span>Hook development</span><i>✦</i><span>Video production</span><i>✦</i><span>Short-form editing</span><i>✦</i><span>Product storytelling</span><i>✦</i><span>Platform adaptation</span></div>
+      <div class="marquee-track" data-marquee><div class="marquee-group"><span>Content strategy</span><i>✦</i><span>Hook development</span><i>✦</i><span>Video production</span><i>✦</i><span>Short-form editing</span><i>✦</i><span>Product storytelling</span><i>✦</i><span>Platform adaptation</span><i>✦</i></div><div class="marquee-group" aria-hidden="true"><span>Content strategy</span><i>✦</i><span>Hook development</span><i>✦</i><span>Video production</span><i>✦</i><span>Short-form editing</span><i>✦</i><span>Product storytelling</span><i>✦</i><span>Platform adaptation</span><i>✦</i></div></div>
+    </section>
+
+    <section class="stats shell" aria-label="Portfolio at a glance">
+      <div class="stat" data-reveal="fade" style="--card-index:0"><strong data-count="5" data-pad="2">05</strong><span>Selected films</span></div>
+      <div class="stat" data-reveal="fade" style="--card-index:1"><strong data-count="468" data-format="time">07:48</strong><span>Minutes of finished edit</span></div>
+      <div class="stat" data-reveal="fade" style="--card-index:2"><strong data-count="4" data-pad="2">04</strong><span>Vertical-first cuts</span></div>
+      <div class="stat" data-reveal="fade" style="--card-index:3"><strong data-count="3" data-pad="2">03</strong><span>Categories of work</span></div>
     </section>
 
     <section class="work shell" id="work" aria-labelledby="work-title">
@@ -87,38 +106,38 @@
         <button type="button" data-filter="Narrative" aria-pressed="false">Narrative</button>
       </div>
 
-      <div class="work-grid">
+      <div class="work-grid" data-work-grid>
         <article class="work-card portrait" data-category="Commercial" data-reveal="work-card" style="--card-index:0">
-          <button class="work-media" type="button" data-video="3-equipment-cafe.mp4" data-title="3 Equipment Wajib Sebelum Buka Cafe" data-role="Content production · Video editing" data-orientation="portrait">
-            <img src="3-equipment-cafe.webp" alt="Commercial café equipment video scene" loading="lazy"><span class="preview-label" aria-hidden="true">Live preview</span><span class="play-button" aria-hidden="true">▶</span><span class="duration">01:22</span><span class="sr-only">Play 3 Equipment Wajib Sebelum Buka Cafe</span>
+          <button class="work-media" type="button" data-cursor="Play" data-video="3-equipment-cafe.mp4" data-title="3 Equipment Wajib Sebelum Buka Cafe" data-role="Content production · Video editing" data-orientation="portrait">
+            <img src="3-equipment-cafe.webp" alt="Commercial café equipment video scene" loading="lazy"><span class="glare" aria-hidden="true"></span><span class="preview-label" aria-hidden="true">Live preview</span><span class="play-button" aria-hidden="true">▶</span><span class="duration">01:22</span><span class="sr-only">Play 3 Equipment Wajib Sebelum Buka Cafe</span>
           </button>
           <div class="work-meta"><div class="work-index">01</div><div><p>Commercial · Product education · Vertical</p><h3>3 Equipment Wajib Sebelum Buka Cafe</h3><p class="work-role">Content production · Video editing</p><p class="work-description">A practical buying-oriented explainer for café operators, structured around a clear audience need instead of a feature dump.</p></div><button class="view-link" type="button" data-open-video>Watch film ↗</button></div>
         </article>
 
         <article class="work-card portrait" data-category="Commercial" data-reveal="work-card" style="--card-index:1">
-          <button class="work-media" type="button" data-video="tecnoeka-redflash.mp4" data-title="Tecnoeka Redflash" data-role="Content production · Video editing" data-orientation="portrait">
-            <img src="tecnoeka-redflash.webp" alt="Tecnoeka Redflash commercial product scene" loading="lazy"><span class="preview-label" aria-hidden="true">Live preview</span><span class="play-button" aria-hidden="true">▶</span><span class="duration">02:10</span><span class="sr-only">Play Tecnoeka Redflash</span>
+          <button class="work-media" type="button" data-cursor="Play" data-video="tecnoeka-redflash.mp4" data-title="Tecnoeka Redflash" data-role="Content production · Video editing" data-orientation="portrait">
+            <img src="tecnoeka-redflash.webp" alt="Tecnoeka Redflash commercial product scene" loading="lazy"><span class="glare" aria-hidden="true"></span><span class="preview-label" aria-hidden="true">Live preview</span><span class="play-button" aria-hidden="true">▶</span><span class="duration">02:10</span><span class="sr-only">Play Tecnoeka Redflash</span>
           </button>
           <div class="work-meta"><div class="work-index">02</div><div><p>Commercial · Product story · Vertical</p><h3>Tecnoeka Redflash</h3><p class="work-role">Content production · Video editing</p><p class="work-description">A problem-to-product story that turns commercial-kitchen equipment into a more human, memorable demonstration.</p></div><button class="view-link" type="button" data-open-video>Watch film ↗</button></div>
         </article>
 
         <article class="work-card portrait" data-category="Social" data-reveal="work-card" style="--card-index:2">
-          <button class="work-media" type="button" data-video="mamma-mia.mp4" data-title="Mamma Mia" data-role="Video production · Editing" data-orientation="portrait">
-            <img src="mamma-mia.webp" alt="Chef collaboration scene from Mamma Mia" loading="lazy"><span class="preview-label" aria-hidden="true">Live preview</span><span class="play-button" aria-hidden="true">▶</span><span class="duration">01:07</span><span class="sr-only">Play Mamma Mia</span>
+          <button class="work-media" type="button" data-cursor="Play" data-video="mamma-mia.mp4" data-title="Mamma Mia" data-role="Video production · Editing" data-orientation="portrait">
+            <img src="mamma-mia.webp" alt="Chef collaboration scene from Mamma Mia" loading="lazy"><span class="glare" aria-hidden="true"></span><span class="preview-label" aria-hidden="true">Live preview</span><span class="play-button" aria-hidden="true">▶</span><span class="duration">01:07</span><span class="sr-only">Play Mamma Mia</span>
           </button>
           <div class="work-meta"><div class="work-index">03</div><div><p>Social · Chef collaboration · Vertical</p><h3>Mamma Mia</h3><p class="work-role">Video production · Editing</p><p class="work-description">Personality-led social coverage that keeps the chef, process, and finished food moving together in one compact story.</p></div><button class="view-link" type="button" data-open-video>Watch film ↗</button></div>
         </article>
 
         <article class="work-card portrait" data-category="Social" data-reveal="work-card" style="--card-index:3">
-          <button class="work-media" type="button" data-video="prasetyo-wahyu-teaser.mp4" data-title="Prasetyo Wahyu Teaser" data-role="Video production · Editing" data-orientation="portrait">
-            <img src="prasetyo-wahyu-teaser.webp" alt="Artisan bread scene from the Prasetyo Wahyu branded teaser" loading="lazy"><span class="preview-label" aria-hidden="true">Live preview</span><span class="play-button" aria-hidden="true">▶</span><span class="duration">00:47</span><span class="sr-only">Play Prasetyo Wahyu Teaser</span>
+          <button class="work-media" type="button" data-cursor="Play" data-video="prasetyo-wahyu-teaser.mp4" data-title="Prasetyo Wahyu Teaser" data-role="Video production · Editing" data-orientation="portrait">
+            <img src="prasetyo-wahyu-teaser.webp" alt="Artisan bread scene from the Prasetyo Wahyu branded teaser" loading="lazy"><span class="glare" aria-hidden="true"></span><span class="preview-label" aria-hidden="true">Live preview</span><span class="play-button" aria-hidden="true">▶</span><span class="duration">00:47</span><span class="sr-only">Play Prasetyo Wahyu Teaser</span>
           </button>
           <div class="work-meta"><div class="work-index">04</div><div><p>Social · Branded teaser · Vertical</p><h3>Prasetyo Wahyu Teaser</h3><p class="work-role">Video production · Editing</p><p class="work-description">A teaser built around controlled reveals, travel details, unboxing, and baking moments to hold curiosity until the payoff.</p></div><button class="view-link" type="button" data-open-video>Watch film ↗</button></div>
         </article>
 
         <article class="work-card landscape" data-category="Narrative" data-reveal="work-card" style="--card-index:4">
-          <button class="work-media" type="button" data-video="kembali-ke-fitrah.mp4" data-title="Kembali ke Fitrah" data-role="Camera · Video editing · Sound design" data-orientation="landscape">
-            <img src="kembali-ke-fitrah.webp" alt="Cinematic scene from Kembali ke Fitrah" loading="lazy"><span class="preview-label" aria-hidden="true">Live preview</span><span class="play-button" aria-hidden="true">▶</span><span class="duration">02:22</span><span class="sr-only">Play Kembali ke Fitrah</span>
+          <button class="work-media" type="button" data-cursor="Play" data-video="kembali-ke-fitrah.mp4" data-title="Kembali ke Fitrah" data-role="Camera · Video editing · Sound design" data-orientation="landscape">
+            <img src="kembali-ke-fitrah.webp" alt="Cinematic scene from Kembali ke Fitrah" loading="lazy"><span class="glare" aria-hidden="true"></span><span class="preview-label" aria-hidden="true">Live preview</span><span class="play-button" aria-hidden="true">▶</span><span class="duration">02:22</span><span class="sr-only">Play Kembali ke Fitrah</span>
           </button>
           <div class="work-meta"><div class="work-index">05</div><div><p>Narrative · Short film · Landscape</p><h3>Kembali ke Fitrah</h3><p class="work-role">Camera · Video editing · Sound design</p><p class="work-description">A quieter character-led piece included to show cinematic framing, pacing, and storytelling range beyond social-first work.</p></div><button class="view-link" type="button" data-open-video>Watch film ↗</button></div>
         </article>
@@ -144,16 +163,18 @@
     </section>
 
     <section class="contact shell" id="contact" aria-labelledby="contact-title" data-reveal="contact">
-      <div class="contact-card"><p class="kicker">04 / Contact</p><h2 id="contact-title">Need content<br>with a purpose?</h2><p>Open to social content, video production, editing, product storytelling, and marketing communication opportunities.</p><a class="button button-light" href="mailto:biliyuniarto1@gmail.com">biliyuniarto1@gmail.com <span>↗</span></a></div>
+      <div class="contact-card" data-spotlight><p class="kicker">04 / Contact</p><h2 id="contact-title">Need content<br>with a purpose?</h2><p>Open to social content, video production, editing, product storytelling, and marketing communication opportunities.</p><div class="contact-actions"><a class="button button-light" href="mailto:biliyuniarto1@gmail.com" data-magnetic>biliyuniarto1@gmail.com <span>↗</span></a><button class="button button-outline-light" type="button" data-copy-email="biliyuniarto1@gmail.com" data-magnetic>Copy email <span>⧉</span></button></div></div>
     </section>
 
     <footer class="site-footer shell"><span>© 2026 Bili Yuniarto</span><span>Social Content &amp; Video Portfolio</span><a href="#top">Back to top ↑</a></footer>
   </main>
 
+  <div class="toast" role="status" aria-live="polite"></div>
+
   <div class="video-modal" role="dialog" aria-modal="true" aria-label="Selected work video player" hidden>
     <button class="modal-backdrop" type="button" aria-label="Close video"></button>
     <div class="modal-panel" role="document">
-      <div class="modal-topline"><div><span id="modal-category">Selected work</span><strong id="modal-title"></strong></div><button type="button" class="modal-close" aria-label="Close video">Close ×</button></div>
+      <div class="modal-topline"><div><span id="modal-category">Selected work</span><strong id="modal-title"></strong></div><div class="modal-controls"><span class="modal-counter" id="modal-counter" aria-live="polite"></span><button type="button" class="modal-nav" data-modal-step="-1" aria-label="Previous film">←</button><button type="button" class="modal-nav" data-modal-step="1" aria-label="Next film">→</button><button type="button" class="modal-close" aria-label="Close video">Close ×</button></div></div>
       <video controls playsinline id="modal-video"></video>
       <p id="modal-role"></p>
     </div>
