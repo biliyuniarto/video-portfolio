@@ -144,6 +144,7 @@ runLoader();
 /* ---------- Scroll-driven effects ---------- */
 
 const mediaItems = [...document.querySelectorAll('.work-media')];
+const mediaImages = mediaItems.map((media) => media.querySelector('img'));
 const processGrid = document.querySelector('.process-grid');
 const approach = document.querySelector('.process-grid');
 const manifestoCard = document.querySelector('[data-manifesto]');
@@ -205,34 +206,38 @@ function updateOnScroll() {
 
   if (reduced) return;
 
-  mediaItems.forEach((media) => {
-    if (media.closest('[hidden]')) return;
-    const rect = media.getBoundingClientRect();
-    if (rect.bottom < -100 || rect.top > viewport + 100) return;
+  // Read every rect first, then write, so the browser lays out only once per frame.
+  const mediaRects = mediaItems.map((media) => (media.closest('[hidden]') ? null : media.getBoundingClientRect()));
+  const processRect = processGrid ? processGrid.getBoundingClientRect() : null;
+  const manifestoRect = manifestoCard ? manifestoCard.getBoundingClientRect() : null;
+  const scrubRects = scrubbers.map(({ element }) => element.getBoundingClientRect());
+
+  mediaItems.forEach((media, index) => {
+    const rect = mediaRects[index];
+    if (!rect || rect.bottom < -100 || rect.top > viewport + 100) return;
     const offset = (rect.top + rect.height / 2 - viewport / 2) / viewport;
     const range = rect.height * 0.05;
-    media.style.setProperty('--parallax', `${clamp(offset * -range * 1.6, -range, range).toFixed(1)}px`);
+    mediaImages[index].style.translate = `0 ${clamp(offset * -range * 1.6, -range, range).toFixed(1)}px`;
   });
 
-  if (processGrid && approach) {
-    const rect = approach.getBoundingClientRect();
-    const amount = clamp((viewport * 0.8 - rect.top) / (rect.height * 0.75), 0, 1);
+  if (processRect && processRect.top < viewport && processRect.bottom > 0) {
+    const amount = clamp((viewport * 0.8 - processRect.top) / (processRect.height * 0.75), 0, 1);
     processGrid.style.setProperty('--process-progress', amount.toFixed(3));
     processSteps.forEach((step, index) => step.classList.toggle('is-lit', amount >= (index + 0.5) / processSteps.length));
   }
 
-  if (manifestoCard) {
-    const rect = manifestoCard.getBoundingClientRect();
-    const grow = clamp((viewport - rect.top) / (viewport * 0.7), 0, 1);
+  if (manifestoRect && manifestoRect.top < viewport && manifestoRect.bottom > 0) {
+    const grow = clamp((viewport - manifestoRect.top) / (viewport * 0.7), 0, 1);
     manifestoCard.style.setProperty('--grow', grow.toFixed(3));
   }
 
-  scrubbers.forEach(({ element, words, start, span }) => {
-    const rect = element.getBoundingClientRect();
+  scrubbers.forEach(({ words, start, span }, index) => {
+    const rect = scrubRects[index];
+    if (rect.top > viewport || rect.bottom < 0) return;
     const amount = clamp((viewport * start - rect.top) / (rect.height + viewport * span), 0, 1);
     const lit = amount * (words.length + 4);
-    words.forEach((word, index) => {
-      const value = clamp(lit - index, 0.16, 1).toFixed(2);
+    words.forEach((word, wordIndex) => {
+      const value = clamp(lit - wordIndex, 0.16, 1).toFixed(2);
       if (word.style.getPropertyValue('--word-opacity') !== value) word.style.setProperty('--word-opacity', value);
     });
   });
@@ -342,6 +347,7 @@ document.querySelectorAll('.capability-panel span').forEach((chip, index) => chi
 if (richPointer) {
   root.classList.add('has-cursor');
   const cursor = document.querySelector('.cursor');
+  cursor.classList.add('is-hidden');
   const dot = cursor.querySelector('.cursor-dot');
   const ring = cursor.querySelector('.cursor-ring');
   const label = cursor.querySelector('.cursor-label');
@@ -378,12 +384,20 @@ if (richPointer) {
     cursor.classList.add('is-hidden');
   });
 
-  (function followRing() {
+  // The ring eases toward the pointer and stops its loop once it has caught up.
+  let ringMoving = false;
+  function followRing() {
     ringPos.x = lerp(ringPos.x, target.x, 0.18);
     ringPos.y = lerp(ringPos.y, target.y, 0.18);
     ring.style.transform = `translate3d(${ringPos.x.toFixed(1)}px, ${ringPos.y.toFixed(1)}px, 0)`;
+    if (Math.abs(target.x - ringPos.x) + Math.abs(target.y - ringPos.y) > 0.3) window.requestAnimationFrame(followRing);
+    else ringMoving = false;
+  }
+  window.addEventListener('pointermove', () => {
+    if (ringMoving) return;
+    ringMoving = true;
     window.requestAnimationFrame(followRing);
-  })();
+  }, { passive: true });
 }
 
 /* ---------- Magnetic buttons ---------- */
@@ -721,104 +735,112 @@ filterButtons.forEach((button) => {
 
 /* ---------- Ambient light streaks ---------- */
 
+// Rendered at reduced resolution (the streaks are soft anyway), paused while the
+// page scrolls, and drawn once as a still frame on low-power or touch devices.
 const streakCanvas = document.querySelector('.streaks');
 if (streakCanvas && streakCanvas.getContext) {
   const ctx = streakCanvas.getContext('2d');
+  const lowPower = reduced
+    || !supportsHover.matches
+    || (navigator.hardwareConcurrency || 8) <= 4
+    || Boolean(navigator.connection && navigator.connection.saveData);
+  const renderScale = 0.6;
   const bundles = [
-    { y: 0.32, slope: -0.32, amp: 0.16, freq: 0.0022, speed: 0.22, spread: 150, strands: 26, hue: 78, phase: 0 },
-    { y: 0.78, slope: 0.12, amp: 0.1, freq: 0.0016, speed: -0.16, spread: 110, strands: 18, hue: 160, phase: 2.1 },
+    { y: 0.32, slope: -0.32, amp: 0.16, freq: 0.0022, speed: 0.22, spread: 150, strands: 16, hue: 78, phase: 0 },
+    { y: 0.78, slope: 0.12, amp: 0.1, freq: 0.0016, speed: -0.16, spread: 110, strands: 11, hue: 160, phase: 2.1 },
   ];
-  const sparks = Array.from({ length: 46 }, () => ({ x: Math.random(), b: Math.random() < 0.7 ? 0 : 1, o: Math.random() - 0.5, v: 0.0004 + Math.random() * 0.0012, r: Math.random() * 1.4 + 0.4 }));
+  const sparks = Array.from({ length: 24 }, () => ({ x: Math.random(), b: Math.random() < 0.7 ? 0 : 1, o: Math.random() - 0.5, v: 0.0006 + Math.random() * 0.0014, r: Math.random() * 1.4 + 0.5 }));
   let width = 0;
   let height = 0;
   let lastDraw = 0;
-  let visible = true;
+  let lastScrollAt = 0;
+  let running = false;
 
   function resizeStreaks() {
-    const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
     width = window.innerWidth;
     height = window.innerHeight;
-    streakCanvas.width = Math.round(width * ratio);
-    streakCanvas.height = Math.round(height * ratio);
-    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+    streakCanvas.width = Math.round(width * renderScale);
+    streakCanvas.height = Math.round(height * renderScale);
+    ctx.setTransform(renderScale, 0, 0, renderScale, 0, 0);
   }
 
   function bundlePoint(bundle, x, t, offset) {
-    const drift = Math.sin(window.scrollY * 0.0012 + bundle.phase) * height * 0.06;
-    const base = height * bundle.y + (x - width / 2) * bundle.slope + drift
+    const base = height * bundle.y + (x - width / 2) * bundle.slope
       + Math.sin(x * bundle.freq + t * bundle.speed + bundle.phase) * height * bundle.amp
       + Math.sin(x * bundle.freq * 2.3 - t * bundle.speed * 1.6) * height * bundle.amp * 0.3;
     const pinch = 0.25 + 0.75 * (0.5 + 0.5 * Math.sin(x * 0.0035 + t * 0.35 + bundle.phase));
     return base + offset * bundle.spread * pinch;
   }
 
+  function tracePath(bundle, t, offset, step) {
+    ctx.beginPath();
+    for (let x = -40; x <= width + 40; x += step) {
+      const y = bundlePoint(bundle, x, t, offset);
+      if (x === -40) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+  }
+
   function drawStreaks(now) {
     const t = now / 1000;
     ctx.clearRect(0, 0, width, height);
     ctx.globalCompositeOperation = 'lighter';
-    const step = width > 900 ? 18 : 14;
+    const step = 26;
 
     bundles.forEach((bundle) => {
+      tracePath(bundle, t, 0, step);
+      ctx.strokeStyle = `hsla(${bundle.hue}, 95%, 60%, 0.07)`;
+      ctx.lineWidth = 22;
+      ctx.stroke();
       for (let i = 0; i < bundle.strands; i += 1) {
         const offset = i / (bundle.strands - 1) - 0.5;
         const center = 1 - Math.abs(offset) * 2;
-        ctx.beginPath();
-        for (let x = -40; x <= width + 40; x += step) {
-          const y = bundlePoint(bundle, x, t, offset);
-          if (x === -40) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
-        }
-        const hue = bundle.hue + offset * 40;
-        ctx.strokeStyle = `hsla(${hue}, 90%, ${55 + center * 15}%, ${0.04 + center * 0.16})`;
-        ctx.lineWidth = 0.6 + center * 0.9;
+        tracePath(bundle, t, offset, step);
+        ctx.strokeStyle = `hsla(${bundle.hue + offset * 40}, 90%, ${55 + center * 15}%, ${0.06 + center * 0.18})`;
+        ctx.lineWidth = 0.8 + center * 1.1;
         ctx.stroke();
       }
-      // soft glow core
-      ctx.beginPath();
-      for (let x = -40; x <= width + 40; x += step) {
-        const y = bundlePoint(bundle, x, t, 0);
-        if (x === -40) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.strokeStyle = `hsla(${bundle.hue}, 95%, 60%, 0.06)`;
-      ctx.lineWidth = 26;
-      ctx.stroke();
     });
 
     sparks.forEach((spark) => {
-      if (!reduced) spark.x = (spark.x + spark.v) % 1.05;
+      if (!lowPower) spark.x = (spark.x + spark.v) % 1.05;
       const x = spark.x * width;
       const y = bundlePoint(bundles[spark.b], x, t, spark.o);
       ctx.fillStyle = `hsla(${bundles[spark.b].hue}, 100%, 75%, ${0.35 + Math.sin(t * 3 + spark.o * 10) * 0.25})`;
-      ctx.beginPath();
-      ctx.arc(x, y, spark.r, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.fillRect(x - spark.r, y - spark.r, spark.r * 2, spark.r * 2);
     });
     ctx.globalCompositeOperation = 'source-over';
   }
 
   function loop(now) {
-    if (!visible) return;
-    if (now - lastDraw > 33) {
+    if (document.hidden) {
+      running = false;
+      return;
+    }
+    const scrolling = now - lastScrollAt < 180;
+    const modalOpen = document.body.classList.contains('modal-open');
+    if (!scrolling && !modalOpen && now - lastDraw > 40) {
       lastDraw = now;
       drawStreaks(now);
     }
     window.requestAnimationFrame(loop);
   }
 
-  resizeStreaks();
-  window.addEventListener('resize', () => {
-    resizeStreaks();
-    if (reduced) drawStreaks(0);
-  }, { passive: true });
-
-  if (reduced) {
-    drawStreaks(0);
-  } else {
-    document.addEventListener('visibilitychange', () => {
-      visible = !document.hidden;
-      if (visible) window.requestAnimationFrame(loop);
-    });
+  function start() {
+    if (running || lowPower) return;
+    running = true;
     window.requestAnimationFrame(loop);
   }
+
+  resizeStreaks();
+  drawStreaks(performance.now());
+  window.addEventListener('resize', () => {
+    resizeStreaks();
+    drawStreaks(performance.now());
+  }, { passive: true });
+  window.addEventListener('scroll', () => { lastScrollAt = performance.now(); }, { passive: true });
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) start();
+  });
+  start();
 }
