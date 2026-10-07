@@ -12,6 +12,14 @@ A curated, mobile-first portfolio focused on social-first video, B2B product com
 - **Prasetyo Wahyu Teaser** — branded social teaser
 - **Kembali ke Fitrah** — narrative / cinematic range
 
+## Interaction & motion
+
+- Intro loader (once per session), film-grain overlay, and character-split hero title
+- Custom cursor, magnetic buttons, 3D tilt + glare and scroll parallax on work cards
+- Scroll-reactive infinite marquee, count-up stats, sliding filter pill, scroll-lit about copy
+- Video modal with previous/next navigation (← / → keys) and a clickable showreel
+- Everything falls back gracefully on touch devices and with `prefers-reduced-motion`
+
 ## Positioning
 
 The portfolio is intentionally curated around work that demonstrates:
